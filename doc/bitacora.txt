@@ -1,0 +1,35 @@
+# 14/16/2023
+## Se crea la apliacion nestjs, utilizando yarn
+nest new anylist
+
+## Se elimina archivos del src solo dejando app.modules.ts y main.ts
+
+## Se modifica app.modules.ts quitando el controlador y el servicio
+
+## Se instala las librerias para trabajar con Graphql y Server Apollo
+yarn add @nestjs/graphql @nestjs/apollo @apollo/server graphql
+yarn add apollo-server-core
+
+## Se configura src/app.modules.ts
+### - adicionar librerias
+    import { join } from 'path';
+    import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+    import { GraphQLModule } from '@nestjs/graphql';
+    import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+
+### - adicionar dentro de imports
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      // debug: false,
+      // playground: false,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+    }),
+
+## Se crea un el recurso de items con GraphQL (code first)
+    nest g res items --no-spec
+
+### - seleccionar GraphQL (code first)
+
+### - presionar Y en: generate CRUD entry points?
+
